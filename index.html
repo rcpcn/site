@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavalcı'dan Özlü Sözler | Restricted</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        neonPrimary: '#8b5cf6', /* Greenish neon */
+                        neonSecondary: '#3b82f6',
+                        darkBg: '#050507', /* Dark with a hint of green */
+                        glassBg: 'rgba(255, 255, 255, 0.03)',
+                        glassBorder: 'rgba(0, 255, 136, 0.15)'
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        cursive: ['Caveat', 'cursive'],
+                        display: ['Orbitron', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Montserrat:wght@300;400;700;900&family=Orbitron:wght@400;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+
+<body class="bg-darkBg text-gray-100 font-sans min-h-screen overflow-x-hidden">
+
+    <!-- Interactive Particles Background -->
+    <div id="particles-js" class="fixed inset-0 z-[-1] pointer-events-none"></div>
+
+    <!-- AUTHENTICATION WALL -->
+    <div id="auth-wall"
+        class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-darkBg/90 backdrop-blur-sm transition-opacity duration-500">
+
+        <!-- Login Form -->
+        <div id="wall-login-container"
+            class="relative z-10 w-full max-w-sm glass-panel p-8 rounded-2xl border border-glassBorder shadow-[0_0_40px_rgba(139,92,246,0.1)] transition-all duration-300 transform">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-display font-black text-neonPrimary tracking-widest mb-2">KAVALCI<span
+                        class="text-white">.SITE</span></h1>
+                <h2 class="text-lg text-white font-bold">Restricted Access</h2>
+                <p class="text-xs text-gray-400 mt-1">Identity Verification Required</p>
+            </div>
+
+            <form id="wall-login-form" class="space-y-5">
+                <div>
+                    <label
+                        class="block text-[10px] uppercase font-bold text-neonPrimary mb-1 tracking-wider">Username</label>
+                    <input type="text" id="wall-login-username" required placeholder="Enter your username"
+                        class="w-full bg-black/60 border border-gray-800 rounded px-4 py-3 text-white focus:outline-none focus:border-neonPrimary focus:ring-1 focus:ring-neonPrimary transition-all text-sm placeholder-gray-600">
+                </div>
+                <div>
+                    <label
+                        class="block text-[10px] uppercase font-bold text-neonPrimary mb-1 tracking-wider">Password</label>
+                    <div class="relative">
+                        <input type="password" id="wall-login-password" required placeholder="Enter your password"
+                            class="w-full bg-black/60 border border-gray-800 rounded px-4 py-3 text-white focus:outline-none focus:border-neonPrimary focus:ring-1 focus:ring-neonPrimary transition-all text-sm placeholder-gray-600">
+                    </div>
+                </div>
+                <button type="submit"
+                    class="w-full py-3 rounded bg-[#1e1b4b] border border-neonPrimary/50 text-neonPrimary font-bold text-sm hover:bg-neonPrimary hover:text-darkBg transition-all mt-4 tracking-wider">LOGIN</button>
+            </form>
+            <div class="mt-6 text-center text-xs text-gray-400">
+                Don't have an account? <button onclick="toggleAuthMode('register')"
+                    class="text-neonPrimary hover:underline font-bold">Get Access</button>
+            </div>
+        </div>
+
+        <!-- Register Form (Hidden initially) -->
+        <div id="wall-register-container"
+            class="hidden relative z-10 w-full max-w-sm glass-panel p-8 rounded-2xl border border-glassBorder shadow-[0_0_40px_rgba(139,92,246,0.1)] transition-all duration-300 transform scale-95 opacity-0">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-display font-black text-neonPrimary tracking-widest mb-2">KAVALCI<span
+                        class="text-white">.SITE</span></h1>
+                <h2 class="text-lg text-white font-bold">Request Access</h2>
+                <p class="text-xs text-yellow-500 mt-1"><i class="fas fa-lock mr-1"></i> Admin approval required</p>
+            </div>
+
+            <form id="wall-register-form" class="space-y-4">
+                <div>
+                    <label
+                        class="block text-[10px] uppercase font-bold text-neonPrimary mb-1 tracking-wider">Email</label>
+                    <input type="email" id="wall-reg-email" required placeholder="Enter your email"
+                        class="w-full bg-black/60 border border-gray-800 rounded px-4 py-3 text-white focus:outline-none focus:border-neonPrimary focus:ring-1 focus:ring-neonPrimary transition-all text-sm placeholder-gray-600">
+                </div>
+                <div>
+                    <label
+                        class="block text-[10px] uppercase font-bold text-neonPrimary mb-1 tracking-wider">Username</label>
+                    <input type="text" id="wall-reg-username" required placeholder="Choose a username"
+                        class="w-full bg-black/60 border border-gray-800 rounded px-4 py-3 text-white focus:outline-none focus:border-neonPrimary focus:ring-1 focus:ring-neonPrimary transition-all text-sm placeholder-gray-600">
+                </div>
+                <div>
+                    <label
+                        class="block text-[10px] uppercase font-bold text-neonPrimary mb-1 tracking-wider">Password</label>
+                    <input type="password" id="wall-reg-password" required placeholder="Create a password"
+                        class="w-full bg-black/60 border border-gray-800 rounded px-4 py-3 text-white focus:outline-none focus:border-neonPrimary focus:ring-1 focus:ring-neonPrimary transition-all text-sm placeholder-gray-600">
+                </div>
+                <button type="submit"
+                    class="w-full py-3 rounded bg-[#1e1b4b] border border-neonPrimary/50 text-neonPrimary font-bold text-sm hover:bg-neonPrimary hover:text-darkBg transition-all mt-4 tracking-wider">REQUEST
+                    ACCESS</button>
+            </form>
+            <div class="mt-6 text-center text-xs text-gray-400">
+                Already approved? <button onclick="toggleAuthMode('login')"
+                    class="text-neonPrimary hover:underline font-bold">Login</button>
+            </div>
+        </div>
+
+        <div class="absolute bottom-5 text-[10px] text-gray-600 tracking-widest font-display">
+            © 2026 KAVALCI.SITE - ALL RIGHTS RESERVED
+        </div>
+    </div>
+
+
+    <!-- MAIN APP CONTENT (Hidden behind auth wall) -->
+    <div id="app-content" class="hidden opacity-0 transition-opacity duration-1000">
+        <!-- Navigation -->
+        <nav class="glass-header sticky top-0 z-50 transition-all duration-300">
+            <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="#"
+                    class="text-2xl font-display font-bold neon-text tracking-wider hover:scale-105 transition-transform">KAVALCI<span
+                        class="text-white text-sm ml-2 font-sans font-light opacity-70">Legacy</span></a>
+
+                <div id="nav-actions" class="flex items-center gap-4">
+                    <span id="welcome-msg" class="text-gray-300 font-light hidden sm:block">Ajan: <span
+                            id="current-username"
+                            class="font-bold text-neonPrimary tracking-wider uppercase font-mono"></span></span>
+                    <button id="admin-panel-btn" onclick="openAdminDashboard()"
+                        class="hidden px-4 py-2 rounded-full border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-colors text-sm font-bold shadow-[0_0_10px_rgba(255,0,0,0.3)]"><i
+                            class="fas fa-shield-alt sm:mr-2"></i><span class="hidden sm:inline">Admin</span></button>
+                    <button onclick="openModal('add-modal')"
+                        class="w-10 h-10 rounded-full bg-neonPrimary text-darkBg flex items-center justify-center hover:scale-110 transition-transform shadow-[0_0_15px_rgba(139,92,246,0.4)]"
+                        title="Söz Ekle">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button onclick="logout()" class="text-gray-400 hover:text-neonSecondary transition-colors"
+                        title="Çıkış Yap">
+                        <i class="fas fa-power-off text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="container mx-auto px-6 py-20 text-center relative">
+            <h1
+                class="text-6xl md:text-8xl font-display font-black mb-6 text-transparent bg-clip-text bg-gradient-to-r from-neonPrimary via-blue-500 to-purple-600 floating drop-shadow-[0_0_30px_rgba(139,92,246,0.2)]">
+                KAVALCI'DAN</h1>
+            <h2
+                class="text-5xl md:text-6xl font-cursive text-white mb-8 -rotate-2 transform hover:rotate-0 transition-transform duration-500">
+                Özlü Sözler...</h2>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto font-light leading-relaxed">
+                Kavalcı haric herkes girebilir
+            </p>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="container mx-auto px-6 py-12">
+            <div class="flex justify-between items-end mb-10 border-b border-glassBorder pb-4">
+                <h3 class="text-3xl font-display font-bold text-gray-200"><i
+                        class="fas fa-database text-neonPrimary mr-3"></i>Veri Tabanı</h3>
+                <div class="flex gap-2">
+                    <button class="filter-btn active" data-filter="all">Tümü</button>
+                    <button class="filter-btn" data-filter="text">Sözler</button>
+                    <button class="filter-btn" data-filter="video">Videolar</button>
+                </div>
+            </div>
+
+            <!-- Grid for items -->
+            <div id="content-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Items injected by JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+
+    <!-- Add Submission Modal -->
+    <div id="add-modal"
+        class="modal-overlay hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <div
+            class="modal-content glass-panel w-full max-w-lg p-8 rounded-2xl transform scale-95 transition-transform duration-300 relative border border-neonPrimary/30 shadow-[0_0_30px_rgba(139,92,246,0.15)]">
+            <button onclick="closeModal('add-modal')"
+                class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"><i
+                    class="fas fa-times text-xl"></i></button>
+            <h2 class="text-3xl font-display font-bold text-center mb-2 text-neonPrimary">Yeni Veri Girişi</h2>
+            <p class="text-center text-gray-400 text-sm mb-6">Gönderileriniz admin onayından sonra veri tabanına
+                eklenecektir.</p>
+
+            <form id="add-form" class="space-y-5">
+                <div class="flex gap-4 mb-4">
+                    <label class="flex-1 cursor-pointer">
+                        <input type="radio" name="sub-type" value="text" class="peer sr-only" checked>
+                        <div
+                            class="p-3 text-center rounded-lg border border-gray-700 text-gray-400 peer-checked:border-neonPrimary peer-checked:text-neonPrimary peer-checked:bg-neonPrimary/10 transition-all font-mono text-sm">
+                            TEXT_DATA</div>
+                    </label>
+                    <label class="flex-1 cursor-pointer">
+                        <input type="radio" name="sub-type" value="video" class="peer sr-only">
+                        <div
+                            class="p-3 text-center rounded-lg border border-gray-700 text-gray-400 peer-checked:border-neonPrimary peer-checked:text-neonPrimary peer-checked:bg-neonPrimary/10 transition-all font-mono text-sm">
+                            MEDIA_URL</div>
+                    </label>
+                </div>
+
+                <div>
+                    <label
+                        class="block text-[10px] uppercase font-bold text-neonPrimary mb-1 tracking-wider">İçerik</label>
+                    <textarea id="sub-content" rows="4" required placeholder="Veriyi buraya girin..."
+                        class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neonPrimary focus:ring-1 focus:ring-neonPrimary transition-all resize-none"></textarea>
+                </div>
+
+                <button type="submit"
+                    class="w-full py-3 rounded bg-[#1e1b4b] border border-neonPrimary/50 text-neonPrimary font-bold hover:bg-neonPrimary hover:text-darkBg transition-all mt-4 tracking-wider">İLET</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal (For explicit /master access) -->
+    <div id="admin-login-modal"
+        class="modal-overlay hidden fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <div
+            class="modal-content w-full max-w-sm p-8 rounded-lg transform scale-95 transition-transform duration-300 relative border border-red-500 bg-black">
+            <button onclick="closeModal('admin-login-modal')"
+                class="absolute top-4 right-4 text-gray-600 hover:text-red-500 transition-colors"><i
+                    class="fas fa-times"></i></button>
+            <div class="text-center mb-6">
+                <i class="fas fa-skull text-4xl text-red-500 mb-4 animate-pulse"></i>
+                <h2 class="text-2xl font-display font-black tracking-widest text-red-500">MASTER ACCESS</h2>
+            </div>
+            <form id="admin-login-form" class="space-y-5">
+                <div>
+                    <input type="password" id="admin-password" required placeholder="Master Key"
+                        class="w-full bg-gray-900 border border-red-900 rounded px-4 py-3 text-red-500 font-mono text-center focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all placeholder-red-900/50">
+                </div>
+                <button type="submit"
+                    class="w-full py-3 rounded bg-red-600 text-black font-black tracking-widest text-lg hover:bg-red-500 transition-colors mt-4">OVERRIDE</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="hidden fixed inset-0 bg-darkBg z-[150] overflow-y-auto">
+        <div class="container mx-auto px-6 py-10">
+            <div
+                class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 border-b border-red-500/30 pb-6 gap-4">
+                <h2 class="text-4xl font-display font-black text-red-500 tracking-wider">KAVALCI <span
+                        class="text-white">COMMAND CENTER</span></h2>
+                <button onclick="closeAdminDashboard()"
+                    class="px-4 py-2 border border-gray-600 text-gray-400 hover:text-white hover:border-white rounded transition-colors font-mono">EXIT
+                    PROTOCOL</button>
+            </div>
+
+            <!-- Admin Tabs -->
+            <div class="flex gap-4 mb-8 overflow-x-auto pb-2 border-b border-gray-800">
+                <button onclick="switchAdminTab('users-tab')" id="btn-users-tab"
+                    class="admin-tab-btn active px-4 py-2 text-neonPrimary border-b-2 border-neonPrimary font-bold whitespace-nowrap"><i
+                        class="fas fa-users mr-2"></i>Kayıt Onayları & Yetki</button>
+                <button onclick="switchAdminTab('pending-tab')" id="btn-pending-tab"
+                    class="admin-tab-btn px-4 py-2 text-gray-500 border-b-2 border-transparent hover:text-gray-300 font-bold whitespace-nowrap"><i
+                        class="fas fa-hourglass-half mr-2"></i>Bekleyen İçerikler</button>
+                <button onclick="switchAdminTab('active-tab')" id="btn-active-tab"
+                    class="admin-tab-btn px-4 py-2 text-gray-500 border-b-2 border-transparent hover:text-gray-300 font-bold whitespace-nowrap"><i
+                        class="fas fa-check-circle mr-2"></i>Aktif Postlar</button>
+                <button onclick="switchAdminTab('logs-tab')" id="btn-logs-tab"
+                    class="admin-tab-btn px-4 py-2 text-gray-500 border-b-2 border-transparent hover:text-gray-300 font-bold whitespace-nowrap"><i
+                        class="fas fa-terminal mr-2"></i>Sistem Logları</button>
+                <button onclick="switchAdminTab('settings-tab')" id="btn-settings-tab"
+                    class="admin-tab-btn px-4 py-2 text-gray-500 border-b-2 border-transparent hover:text-gray-300 font-bold whitespace-nowrap"><i
+                        class="fas fa-cog mr-2"></i>Sistem Ayarları</button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Content Area -->
+                <div class="lg:col-span-2">
+
+                    <!-- Tab: Users -->
+                    <div id="users-tab" class="admin-tab-content block">
+                        <h3 class="text-xl font-bold text-gray-300 mb-6 flex items-center"><i
+                                class="fas fa-id-card text-blue-500 mr-3"></i> Ajan Yetkilendirme Merkezi</h3>
+                        <div id="users-list" class="space-y-4"></div>
+                    </div>
+
+                    <!-- Tab: Pending Content -->
+                    <div id="pending-tab" class="admin-tab-content hidden">
+                        <h3 class="text-xl font-bold text-gray-300 mb-6 flex items-center"><i
+                                class="fas fa-file-alt text-yellow-500 mr-3"></i> Onay Bekleyen İçerikler</h3>
+                        <div id="pending-list" class="space-y-4"></div>
+                    </div>
+
+                    <!-- Tab: Active Posts -->
+                    <div id="active-tab" class="admin-tab-content hidden">
+                        <h3 class="text-xl font-bold text-gray-300 mb-6 flex items-center"><i
+                                class="fas fa-database text-purple-500 mr-3"></i> Yayındaki Veriler</h3>
+                        <div id="active-list" class="space-y-4"></div>
+                    </div>
+
+                    <!-- Tab: System Logs -->
+                    <div id="logs-tab" class="admin-tab-content hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold text-gray-300 flex items-center"><i
+                                    class="fas fa-terminal text-blue-400 mr-3"></i> Olay Günlüğü (Audit Log)</h3>
+                            <button onclick="clearLogs()"
+                                class="text-xs text-red-500 hover:text-red-400 border border-red-500/30 px-3 py-1 rounded">Temizle</button>
+                        </div>
+                        <div class="glass-panel p-4 rounded-lg border border-gray-800 bg-black/80 h-[500px] overflow-y-auto font-mono text-xs flex flex-col gap-2"
+                            id="logs-list">
+                            <!-- Logs injected here -->
+                        </div>
+                    </div>
+
+                    <!-- Tab: Settings -->
+                    <div id="settings-tab" class="admin-tab-content hidden">
+                        <h3 class="text-xl font-bold text-gray-300 mb-6 flex items-center"><i
+                                class="fas fa-cog text-purple-500 mr-3"></i> Sistem Ayarları</h3>
+                        <div class="glass-panel p-6 rounded-lg border border-gray-800">
+                            <h4 class="text-neonPrimary font-bold mb-4 font-mono">DISCORD WEBHOOK ENTEGRASYONU</h4>
+                            <p class="text-xs text-gray-400 mb-4">Sisteme başarılı giriş yapan ajanların bilgisini anlık
+                                olarak Discord kanalına gönderir. (Sadece erişim onayı almış kullanıcılar loglanır).</p>
+                            <form id="webhook-form" class="space-y-4">
+                                <div>
+                                    <label
+                                        class="block text-[10px] uppercase font-bold text-gray-500 mb-1 tracking-wider">Webhook
+                                        URL</label>
+                                    <input type="url" id="webhook-url-input"
+                                        placeholder="https://discord.com/api/webhooks/..."
+                                        class="w-full bg-black/60 border border-gray-700 rounded px-4 py-3 text-white focus:outline-none focus:border-neonPrimary focus:ring-1 focus:ring-neonPrimary transition-all text-sm font-mono placeholder-gray-700">
+                                </div>
+                                <button type="submit"
+                                    class="px-6 py-2 rounded bg-purple-600/20 text-purple-400 border border-purple-600/50 hover:bg-purple-600 hover:text-white transition-colors text-xs font-bold tracking-widest">KAYDET</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Admin Quick Add -->
+                <div>
+                    <div class="glass-panel p-6 rounded-xl border border-glassBorder sticky top-10">
+                        <h3 class="text-xl font-bold text-neonPrimary mb-6 flex items-center"><i
+                                class="fas fa-bolt mr-3"></i> Sistem Bypass (Direkt Ekle)</h3>
+                        <form id="admin-add-form" class="space-y-4">
+                            <div>
+                                <select id="admin-sub-type"
+                                    class="w-full bg-black/50 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-neonPrimary font-mono text-sm">
+                                    <option value="text">TEXT_DATA</option>
+                                    <option value="video">MEDIA_URL</option>
+                                </select>
+                            </div>
+                            <div>
+                                <textarea id="admin-sub-content" rows="4" required placeholder="Ham veri..."
+                                    class="w-full bg-black/50 border border-gray-700 rounded px-3 py-2 text-white focus:outline-none focus:border-neonPrimary resize-none"></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full py-2 rounded bg-neonPrimary text-darkBg font-bold hover:bg-white transition-colors">Enjekte
+                                Et</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast"
+        class="fixed bottom-5 right-5 transform translate-y-[150%] transition-transform duration-300 z-[300] px-6 py-3 rounded-lg shadow-lg font-medium text-white flex items-center gap-3">
+        <i id="toast-icon" class="fas fa-info-circle"></i>
+        <span id="toast-msg">Message</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
